@@ -1,0 +1,448 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+#include "funcionestrabajopracticofinal.h"
+using namespace std;
+
+int main(){
+    const int nueve=7,c=6,UNO=1,CINCO=5;
+    int desicionmenu,indicemayor,puntostotales1=0,puntostotales2=0,lanzamiento=1,ronda=1,puntosdelaronda=0,vpuntos[nueve],maximoronda,puntosmaximoganador,primerganador=0,primerganador11=0,aux2;
+    int dados[c];
+    char nombre1[20];
+    char maximoganador[20];
+    char nombre2[20];
+    char desicion='s';
+    char guardarpuntaje1='n';
+    desicionmenu=menu();
+    system("cls");
+ while(desicionmenu!=0){
+ switch(desicionmenu){
+/**modo un jugador**/
+ case 1:
+     bienvenida1jugador();
+     cin>>nombre1;
+     system("cls");
+     while(ronda<=10&&puntostotales1<=10000){
+        do{
+        cout<<"jugador:"<<nombre1<<" || puntos totales:"<<puntostotales1<<" || lanzamiento:"<<lanzamiento<<"  || ronda:"<<ronda<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+        cout<<"puntos de la ronda: "<<puntosdelaronda<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+        tirardados(dados,c);
+        cout<<endl;
+        vpuntos[0]=CombGanadoras1(dados,c,UNO);
+        vpuntos[1]=CombGanadoras2(dados,c,CINCO);
+        vpuntos[2]=CombGanadoras3(dados,c,UNO);
+        vpuntos[3]=CombGanadoras4(dados,c);
+        vpuntos[4]=CombGanadoras5(dados,c);
+        vpuntos[5]=CombGanadoras6(dados,c,UNO);
+        vpuntos[6]=CombGanadoras7(dados,c);
+        vpuntos[7]=CombGanadoras8(dados,c);
+        vpuntos[8]=CombGanadoras9(dados,c,UNO);
+        indicemayor=combinacionganadorafinal(vpuntos,nueve);
+        switch(indicemayor+1){
+    case 1:
+        cout << "Juego de 1";
+        cout << endl;
+    break;
+    case 2:
+        cout << "Juego de 5";
+        cout << endl;
+    break;
+    case 3:
+        cout << "Trio de 1";
+        cout << endl;
+    break;
+    case 4:
+        aux2=TrioGanador4(dados,c);
+        cout << "Trio de ";
+        cout << aux2;
+        cout << ": ";
+        cout << endl;
+    break;
+    case 5:
+        aux2=TrioGanador5(dados,c);
+        cout << "Trio de ";
+        cout << aux2;
+        cout << "++: ";
+        cout << endl;
+    break;
+    case 6:
+        cout << "Trio de 1 ampliado";
+        cout << endl;
+    break;
+    case 7:
+        cout << "3 pares";
+        cout << endl;
+    break;
+    case 8:
+        cout << "Obtuviste una escalera larga";
+        cout << endl;
+    break;
+    case 9:
+        cout << "Sexteto de 1";
+        cout << endl;
+    break;
+    default:
+        break;
+}
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"puntos del tiro:"<<vpuntos[indicemayor]<<endl;
+    if(vpuntos[indicemayor]!=0){
+        cout<<"quiere volver a realizar un lanzamiento?(s/n)";
+        cin>>desicion;
+        lanzamiento++;
+        puntosdelaronda+=vpuntos[indicemayor];}
+    else{
+        desicion='n';
+        puntosdelaronda=0;
+        system("cls");
+        cout<<"------------------------------------------------------------------"<<endl;
+        cout<<"no hubo ninguna combinacion ganadora pierdes los puntos de la ronda"<<endl;
+        cout<<"------------------------------------------------------------------"<<endl;
+
+        }
+        system("pause>null");
+  system("cls");
+        } while(desicion=='s'&&(puntosdelaronda+puntostotales1)<10000);
+        ronda++;
+        puntostotales1+=puntosdelaronda;
+        puntosdelaronda=0;
+        lanzamiento=1;
+
+        }
+        if(puntostotales1>=10000){
+            puntostotales1=10000;
+        }
+        /**mensaje final**/
+        system("cls");
+        if(puntostotales1>=10000){
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"----FELICITACIONES GANASTE----------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+        if(primerganador==0){
+        nombregnadormayo(nombre1,maximoganador,20);
+        maximoronda=ronda;
+        puntosmaximoganador=puntostotales1;
+        primerganador++;
+        }
+        else{
+        if(ronda<maximoronda){
+        nombregnadormayo(nombre1,maximoganador,20);
+        maximoronda=ronda;
+        puntosmaximoganador=puntostotales1;
+        }
+        }
+        }
+        else{
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"----puntuacion obtenida:"<<puntostotales1<<"----------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+        if(primerganador==0){
+        if(primerganador11==0){
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"obtiviste mas puntos que el maximo desea guardar su puntaje?(s/n)"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cin>>guardarpuntaje1;
+        if(guardarpuntaje1=='s'){
+        nombregnadormayo(nombre1,maximoganador,20);
+        maximoronda=ronda;
+        puntosmaximoganador=puntostotales1;
+        primerganador11++;
+        }
+        }
+        else{
+        if(puntosmaximoganador<puntostotales1){
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"obtiviste mas puntos que el maximo desea guardar su puntaje?(s/n)"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cin>>guardarpuntaje1;
+        if(guardarpuntaje1=='s'){
+        nombregnadormayo(nombre1,maximoganador,20);
+        maximoronda=ronda;
+        puntosmaximoganador=puntostotales1;
+        }
+        }
+        }
+        }}
+     system("pause>null");
+     system("cls");
+break;
+
+ /**modo 2 jugadors**/
+ case 2:
+    bienvenida2jugador();
+    cin>>nombre1;
+    cout<<"-----------------------------------------------------------------"<<endl;
+    cout<<"ingresa nombre jugadod numero 2: ";
+    cin>>nombre2;
+     system("cls");
+     while(ronda<=10&&puntostotales1<=10000&&puntostotales2<=10000){
+       for(int turno=1;turno<=2;turno++){
+        if(turno==1){
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"ronda numero:"<<ronda<<endl;
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"----turno de:"<<nombre1<<endl;
+        cout<<"----total de puntos:"<<puntostotales1<<endl;
+        system("pause>null");
+        system("cls");
+        do{
+        cout<<"jugador:"<<nombre1<<" || puntos totales:"<<puntostotales1<<" || lanzamiento:"<<lanzamiento<<"  || ronda:"<<ronda<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+        cout<<"puntos de la ronda: "<<puntosdelaronda<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+        tirardados(dados,c);
+        cout<<endl;
+        vpuntos[0]=CombGanadoras1(dados,c,UNO);
+        vpuntos[1]=CombGanadoras2(dados,c,CINCO);
+        vpuntos[2]=CombGanadoras3(dados,c,UNO);
+        vpuntos[3]=CombGanadoras4(dados,c);
+        vpuntos[4]=CombGanadoras5(dados,c);
+        vpuntos[5]=CombGanadoras6(dados,c,UNO);
+        vpuntos[6]=CombGanadoras7(dados,c);
+        vpuntos[7]=CombGanadoras8(dados,c);
+        vpuntos[8]=CombGanadoras9(dados,c,UNO);
+        indicemayor=combinacionganadorafinal(vpuntos,nueve);
+        switch(indicemayor+1){
+    case 1:
+        cout << "Juego de 1";
+        cout << endl;
+    break;
+    case 2:
+        cout << "Juego de 5";
+        cout << endl;
+    break;
+    case 3:
+        cout << "Trio de 1";
+        cout << endl;
+    break;
+    case 4:
+        aux2=TrioGanador4(dados,c);
+        cout << "Trio de ";
+        cout << aux2;
+        cout << ": ";
+        cout << endl;
+    break;
+    case 5:
+        aux2=TrioGanador5(dados,c);
+        cout << "Trio de ";
+        cout << aux2;
+        cout << "++: ";
+        cout << endl;
+    break;
+    case 6:
+        cout << "Trio de 1 ampliado";
+        cout << endl;
+    break;
+    case 7:
+        cout << "3 pares";
+        cout << endl;
+    break;
+    case 8:
+        cout << "Obtuviste una escalera larga";
+        cout << endl;
+    break;
+    case 9:
+        cout << "Sexteto de 1";
+        cout << endl;
+    break;
+    default:
+        break;
+}
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"puntos del tiro:"<<vpuntos[indicemayor]<<endl;
+    if(vpuntos[indicemayor]!=0){
+        cout<<"quiere volver a realizar un lanzamiento?(s/n)";
+        cin>>desicion;
+        lanzamiento++;
+        puntosdelaronda+=vpuntos[indicemayor];}
+    else{
+        desicion='n';
+        puntosdelaronda=0;
+        system("cls");
+        cout<<"------------------------------------------------------------------"<<endl;
+        cout<<"no hubo ninguna combinacion ganadora pierdes los puntos de la ronda"<<endl;
+        cout<<"------------------------------------------------------------------"<<endl;
+        }
+  system("pause>null");
+  system("cls");
+        } while(desicion=='s'&&(puntosdelaronda+puntostotales1)<10000);
+        puntostotales1+=puntosdelaronda;
+        puntosdelaronda=0;
+        lanzamiento=1;
+        }
+        else{
+        system("cls");
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"ronda numero:"<<ronda<<endl;
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"----turno de:"<<nombre2<<endl;
+        cout<<"----total de puntos:"<<puntostotales2<<endl;
+        system("pause>null");
+        system("cls");
+             do{
+        cout<<"jugador:"<<nombre2<<" || puntos totales:"<<puntostotales2<<" || lanzamiento:"<<lanzamiento<<"  || ronda:"<<ronda<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+        cout<<"puntos de la ronda: "<<puntosdelaronda<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+        tirardados(dados,c);
+        cout<<endl;
+        vpuntos[0]=CombGanadoras1(dados,c,UNO);
+        vpuntos[1]=CombGanadoras2(dados,c,CINCO);
+        vpuntos[2]=CombGanadoras3(dados,c,UNO);
+        vpuntos[3]=CombGanadoras4(dados,c);
+        vpuntos[4]=CombGanadoras5(dados,c);
+        vpuntos[5]=CombGanadoras6(dados,c,UNO);
+        vpuntos[6]=CombGanadoras7(dados,c);
+        vpuntos[7]=CombGanadoras8(dados,c);
+        vpuntos[8]=CombGanadoras9(dados,c,UNO);
+        indicemayor=combinacionganadorafinal(vpuntos,nueve);
+        switch(indicemayor+1){
+    case 1:
+        cout << "Juego de 1";
+        cout << endl;
+    break;
+    case 2:
+        cout << "Juego de 5";
+        cout << endl;
+    break;
+    case 3:
+        cout << "Trio de 1";
+        cout << endl;
+    break;
+    case 4:
+        aux2=TrioGanador4(dados,c);
+        cout << "Trio de ";
+        cout << aux2;
+        cout << ": ";
+        cout << endl;
+    break;
+    case 5:
+        aux2=TrioGanador5(dados,c);
+        cout << "Trio de ";
+        cout << aux2;
+        cout << "++: ";
+        cout << endl;
+    break;
+    case 6:
+        cout << "Trio de 1 ampliado";
+        cout << endl;
+    break;
+    case 7:
+        cout << "3 pares";
+        cout << endl;
+    break;
+    case 8:
+        cout << "Obtuviste una escalera larga";
+        cout << endl;
+    break;
+    case 9:
+        cout << "Sexteto de 1";
+        cout << endl;
+    break;
+    default:
+        break;
+}
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"puntos del tiro:"<<vpuntos[indicemayor]<<endl;
+    if(vpuntos[indicemayor]!=0){
+        cout<<"quiere volver a realizar un lanzamiento?(s/n)";
+        cin>>desicion;
+        lanzamiento++;
+        puntosdelaronda+=vpuntos[indicemayor];}
+    else{
+         system("pause>null");
+        desicion='n';
+        puntosdelaronda=0;
+         system("cls");
+        cout<<"------------------------------------------------------------------"<<endl;
+        cout<<"no hubo ninguna combinacion ganadora pierdes los puntos de la ronda"<<endl;
+        cout<<"------------------------------------------------------------------"<<endl;}
+ system("pause>null");
+  system("cls");
+
+        } while(desicion=='s'&&(puntosdelaronda+puntostotales1)<10000);
+        puntostotales2+=puntosdelaronda;
+        }
+        }
+
+
+
+     ronda++;
+     puntosdelaronda=0;
+     lanzamiento=1;
+     cout<<"-----------------------------------------------------------------"<<endl;
+     cout<<"---------fin de la ronda-----------"<<endl;
+     cout<<"-----------------------------------------------------------------"<<endl;
+     cout<<"puntos de:"<<nombre1<<endl;
+     cout<<"total :"<<puntostotales1<<endl;
+     cout<<"-----------------------------------------------------------------"<<endl;
+     cout<<"puntos de:"<<nombre2<<endl;
+     cout<<"total :"<<puntostotales2<<endl;
+     cout<<"-----------------------------------------------------------------"<<endl;
+     system("pause>null");
+     system("cls");
+     }
+     if(puntostotales1>puntostotales2){
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"----FELICITACIONES"<<nombre1<<" GANASTE----------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+        }
+        else {
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"----FELICITACIONES"<<nombre2<<" GANASTE----------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+        }
+system("cls");
+     break;
+
+/**maxima calificacion**/
+     case 3:
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"----maxima ganador: "<<maximoganador<<"--------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"----puntuacion maxima: "<<puntosmaximoganador<<" -------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"----cantidad de rondas: "<<maximoronda-1<<" --------------------------------------"<<endl;
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"enter para volver al menu"<<endl;
+         system("pause>null");
+         system("cls");
+
+ break;
+
+ }
+
+desicionmenu=menu();
+puntostotales1=0;
+puntostotales2=0;
+lanzamiento=1;
+ronda=1;
+puntosdelaronda=0;
+system("cls");
+ }
+
+
+return 0;
+
+ }
