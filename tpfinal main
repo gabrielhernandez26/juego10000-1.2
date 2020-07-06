@@ -8,11 +8,13 @@ using namespace std;
 
 int main(){
     const int nueve=7,c=6,UNO=1,CINCO=5;
-    int desicionmenu,indicemayor,puntostotales1=0,puntostotales2=0,lanzamiento=1,ronda=1,puntosdelaronda=0,vpuntos[nueve],mayor,aux2;
+    int desicionmenu,indicemayor,puntostotales1=0,puntostotales2=0,lanzamiento=1,ronda=1,puntosdelaronda=0,vpuntos[nueve],maximoronda,puntosmaximoganador,primerganador=0,primerganador11=0,aux2;
     int dados[c];
     char nombre1[20];
+    char maximoganador[20];
     char nombre2[20];
     char desicion='s';
+    char guardarpuntaje1='n';
     desicionmenu=menu();
     system("cls");
  while(desicionmenu!=0){
@@ -22,7 +24,7 @@ int main(){
      bienvenida1jugador();
      cin>>nombre1;
      system("cls");
-     while(ronda<=10&&puntostotales1<10000){
+     while(ronda<=10&&puntostotales1<=10000){
         do{
         cout<<"jugador:"<<nombre1<<" || puntos totales:"<<puntostotales1<<" || lanzamiento:"<<lanzamiento<<"  || ronda:"<<ronda<<endl;
         cout<<"------------------------------------------------------"<<endl;
@@ -104,13 +106,77 @@ int main(){
         }
         system("pause>null");
   system("cls");
-        } while(desicion=='s'&&puntosdelaronda<10000);
+        } while(desicion=='s'&&(puntosdelaronda+puntostotales1)<10000);
         ronda++;
         puntostotales1+=puntosdelaronda;
         puntosdelaronda=0;
         lanzamiento=1;
+
         }
+        if(puntostotales1>=10000){
+            puntostotales1=10000;
+        }
+        /**mensaje final**/
+        system("cls");
+        if(puntostotales1>=10000){
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"----FELICITACIONES GANASTE----------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+        if(primerganador==0){
+        nombregnadormayo(nombre1,maximoganador,20);
+        maximoronda=ronda;
+        puntosmaximoganador=puntostotales1;
+        primerganador++;
+        }
+        else{
+        if(ronda<maximoronda){
+        nombregnadormayo(nombre1,maximoganador,20);
+        maximoronda=ronda;
+        puntosmaximoganador=puntostotales1;
+        }
+        }
+        }
+        else{
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"----puntuacion obtenida:"<<puntostotales1<<"----------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+        if(primerganador==0){
+        if(primerganador11==0){
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"obtiviste mas puntos que el maximo desea guardar su puntaje?(s/n)"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cin>>guardarpuntaje1;
+        if(guardarpuntaje1=='s'){
+        nombregnadormayo(nombre1,maximoganador,20);
+        maximoronda=ronda;
+        puntosmaximoganador=puntostotales1;
+        primerganador11++;
+        }
+        }
+        else{
+        if(puntosmaximoganador<puntostotales1){
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"obtiviste mas puntos que el maximo desea guardar su puntaje?(s/n)"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cout<<"-----------------------------------------------------------------"<<endl;
+             cin>>guardarpuntaje1;
+        if(guardarpuntaje1=='s'){
+        nombregnadormayo(nombre1,maximoganador,20);
+        maximoronda=ronda;
+        puntosmaximoganador=puntostotales1;
+        }
+        }
+        }
+        }}
      system("pause>null");
+     system("cls");
 break;
 
  /**modo 2 jugadors**/
@@ -121,7 +187,7 @@ break;
     cout<<"ingresa nombre jugadod numero 2: ";
     cin>>nombre2;
      system("cls");
-     while(ronda<=10&&puntostotales1<10000){
+     while(ronda<=10&&puntostotales1<=10000&&puntostotales2<=10000){
        for(int turno=1;turno<=2;turno++){
         if(turno==1){
         cout<<"-----------------------------------------------------------------"<<endl;
@@ -211,7 +277,7 @@ break;
         }
   system("pause>null");
   system("cls");
-        } while(desicion=='s'&&puntosdelaronda<10000);
+        } while(desicion=='s'&&(puntosdelaronda+puntostotales1)<10000);
         puntostotales1+=puntosdelaronda;
         puntosdelaronda=0;
         lanzamiento=1;
@@ -306,7 +372,7 @@ break;
  system("pause>null");
   system("cls");
 
-        } while(desicion=='s'&&puntosdelaronda<10000);
+        } while(desicion=='s'&&(puntosdelaronda+puntostotales1)<10000);
         puntostotales2+=puntosdelaronda;
         }
         }
@@ -328,32 +394,44 @@ break;
      system("pause>null");
      system("cls");
      }
-
+     if(puntostotales1>puntostotales2){
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"----FELICITACIONES"<<nombre1<<" GANASTE----------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+        }
+        else {
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"----FELICITACIONES"<<nombre2<<" GANASTE----------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+            cout<<"-----------------------------------------------------------------"<<endl;
+        }
+system("cls");
      break;
 
 /**maxima calificacion**/
      case 3:
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"----maxima ganador: "<<maximoganador<<"--------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"----puntuacion maxima: "<<puntosmaximoganador<<" -------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"-----------------------------------------------------------------"<<endl;
+         cout<<"----cantidad de rondas: "<<maximoronda-1<<" --------------------------------------"<<endl;
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"enter para volver al menu"<<endl;
+         system("pause>null");
+         system("cls");
+
  break;
 
-
-
-
-
  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 desicionmenu=menu();
 puntostotales1=0;
@@ -361,13 +439,10 @@ puntostotales2=0;
 lanzamiento=1;
 ronda=1;
 puntosdelaronda=0;
+system("cls");
  }
-
-
 
 
 return 0;
 
  }
-
-
