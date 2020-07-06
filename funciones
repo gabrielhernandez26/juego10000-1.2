@@ -58,6 +58,15 @@ void tirardados(int dados[],int c){
 
 
 }
+/**nombre maximo ganador**/
+int nombregnadormayo(char nombre[],char nombremaximo[],int tam){
+int i;
+    for(i=0;i<tam;i++){
+        nombremaximo[i]=nombre[i];
+    }
+
+
+}
 
 
 /**combinaciones ganadoras**/
